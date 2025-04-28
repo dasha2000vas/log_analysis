@@ -2,28 +2,29 @@
 
 ## How to add new report
 
-- add report name to REPORT_MODES list:
-```python
-REPORT_MODES = ["handlers", "new_report"]
-```
-
-- write function to read line for report and function to print report:
+- write function to read line for report, function to
+  concatenate report data from different files and 
+  function to print report:
 ```python
 def read_line_for_new_report(line, report):
+    ...
+
+def concatenate_new_report(data):
     ...
 
 def print_new_report(report, total_count):
     ...
 ```
 
-- add in  ```if __name__ == "__main__"``` block:
-
+- add report name and info to REPORT_MODES list:
 ```python
-if args.report == "handlers":
+REPORT_MODES = {
     ...
-elif args.report == "new_report":
-    report, total_count = get_target_report(
-        args.filepath, "target_part", read_line_for_new_report
-    )
-    print_new_report(report, total_count)
+    "new_report": {
+        "target_part": "target_part_of_app",
+        "read_line": read_line_for_new_report,
+        "concatenate": concatenate_new_report,
+        "print_report": print_new_report,
+    }
+}
 ```
